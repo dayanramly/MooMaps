@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
+  <title></title>
+
+  <link href="lib/ionic/css/ionic.css" rel="stylesheet">
+  <link href="css/style.css" rel="stylesheet">
+  <!-- ionic/angularjs js -->
+  <script src="lib/ionic/js/ionic.bundle.js"></script>
+
+  <!-- your app's js -->
+  <script src="js/app.js"></script>
+    <!-- cordova script (this will be a 404 during development) -->
+  <script src="https://maps.googleapis.com/maps/api/js?v=3.17&keykey=AIzaSyDVPpS7bdwG3zhvHI3ifYYdKqELUDXwxaU&sensor=false"></script>
+  <script src="cordova.js"></script>
+
+</head>
+<body ng-app="moomaps" ng-controller="slideCtrl">
+  <ion-nav-view></ion-nav-view>
+  <script id="event-menu.html" type="text/ng-template">
+  <ion-side-menus>
+    <ion-side-menu-content>
+      <ion-nav-bar class="bar-clear ">
+        <ion-nav-back-button class="button-icon ion-arrow-left-c">
+        </ion-nav-back-button>
+      </ion-nav-bar>
+      <ion-nav-buttons side="left">
+        <button class="button button-icon button-clear ion-navicon" ng-click="toggleLeft()">
+        </button>
+      </ion-nav-buttons>
+      <ion-nav-view animation="no-animation" name="menuContent"></ion-nav-view>
+    </ion-side-menu-content>
+  <!-- Left Menu -->
+    <ion-side-menu side="left">
+      <ion-header-bar class="bar bar-header bar-positive">
+        <h1 class="title">Menu</h1>
+      </ion-header-bar>
+      <ion-content >
+        <ion-list>
+            <ul class="list">
+              <!-- Note each link has the 'menu-close' attribute so the menu auto closes when clicking on one of these links -->
+              <a href="#/event/home" class="item icon-left ion-ios7-location-outline" menu-close> Home</a>
+              <a href="#/event/lihatkampus" class="item icon-left ion-ios7-paperplane-outline" menu-close> Lihat Kampus</a>
+              <a href="#/event/programstudi" class="item icon-left ion-ios7-paper-outline" menu-close> Program Studi</a>
+              <a href="#/event/jalurkampus" class="item icon-left ion-ios7-navigate-outline" menu-close> Jalur Kampus</a>
+              <a href="#/event/petunjuk" class="item icon-left ion-ios7-information-outline" menu-close> Petunjuk</a>
+            </ul>
+        </ion-list>
+      </ion-content>
+    </ion-side-menu>
+  </ion-side-menus>
+  </script>
+  <script id="home.html" type="text/ng-template">
+    <ion-view title="" class="pane">
+      <ion-content class="pane-content" scroll="false">
+        <img src="../www/img/logo.svg">
+         <h2>MooMaps</h2>
+         <p>Mobile School Maps</p>
+      </ion-content>
+      <ion-footer-bar align-title="center" class="bar-clear">
+        <h1 class="title"><a ng-href="#/event/peta" class="button button-icon icon ion-navigate">Posisiku</a></h1>
+      </ion-footer-bar>
+    </ion-view>
+  </script>
+  <script id="tampilPeta.html" type="text/ng-template">
+    <ion-view title="Posisiku">
+      <ion-content scroll="false">
+        <div id="map" data-tap-disabled="true"></div>
+      </ion-content>
+      <ion-footer-bar class="bar-clear">
+      </ion-footer-bar>
+    </ion-view>
+  </script>
+  <script id="lihatkampus.html" type="text/ng-template">
+    <ion-view title="Lihat Kampus">
+      <ion-content>
+        <div id="search-box" class="bar bar-header item-input-inset item-clear">
+          <label class="item-input-wrapper item-input-wrapper-custom">
+            <i class="icon ion-ios7-search placeholder-icon"></i>
+          <input type="search" placeholder="Search" ng-model="data.searchQuery">
+          </label>
+          <button class="button button-clear" ng-click="clearSearch()">
+          Clear
+          </button>
+        </div>
+        <ul class="list item-clear">
+          <li ng-repeat="kampus in posts| filter: data.searchQuery"><a class="item item-icon-right" ng-href="#/event/lihatkampus/universitas/{{kampus.id}}">{{kampus.nama}}<i class="icon ion-ios7-arrow-right"></i></a></li>
+        </ul>
+      </ion-content>
+    </ion-view>
+  </script>
+  <script id="universitas.html" type="text/ng-template">
+    <ion-view title="{{univku.nama}}">
+      <ion-content>
+      <div class="list card">
+        <div class="item item-image">
+          <img src="{{univku.foto}}">
+        </div>
+        <div class="item item-text-wrap" style="text-align: justify;">
+          {{univku.deskripsi}}
+        </div>
+        <div class="item item-text-wrap">
+          <h2>{{univku.alamat}}</h2>
+          <p>{{univku.website}}</p>
+          <p>Akreditasi : {{univku.akreditasi}}</p>
+        </div>
+        <div class="item tabs tabs-secondary tabs-icon-left">
+          <a class="tab-item assertive" href="#/event/lihatkampus/universitas/prodi/{{univku.id}}">
+            <i class="icon ion-ios7-paper-outline"></i>
+            Program Studi
+          </a>
+          <a class="tab-item positive" href="#/event/lihatkampus/universitas/peta/{{univku.id}}">
+            <i class="icon ion-navigate"></i>
+            Lihat di peta
+          </a>
+        </div>
+        <div class="item"></div>
+      </div>
+      </ion-content>
+    </ion-view>
+  </script>
+  <script id="listprodi.html" type="text/ng-template">
+    <ion-view title="Program Studi">
+      <ion-content>
+        <div id="search-box" class="bar bar-header item-input-inset item-clear">
+          <label class="item-input-wrapper item-input-wrapper-custom">
+            <i class="icon ion-ios7-search placeholder-icon"></i>
+          <input type="search" placeholder="Search" ng-model="data.searchQuery">
+          </label>
+          <button class="button button-clear" ng-click="clearSearch()">
+          Clear
+          </button>
+        </div>
+        <ul class="list item-clear">
+          <li ng-repeat="listprodi in lists | filter: data.searchQuery" class="item">
+            <h2>{{listprodi.nama}}</h2>
+            <p>Fakultas {{listprodi.fakultas}}, Jenjang <strong>{{listprodi.jenjang}}</strong>, Akreditasi <strong>{{listprodi.akreditasi}}</strong>
+              <br>Biaya Rp. {{listprodi.biaya}} / per semester</p>
+          </li>
+        </ul>
+      </ion-content>
+    </ion-view>
+  </script>
+  <script id="mapkampus.html" type="text/ng-template">
+    <ion-view title="Peta Kampus">
+      <ion-content>
+        <div id="mapkampus"></div>
+        <div id="detailkampus">
+          <ul class="list item-clear">
+            <li ng-repeat="univ in mapku" class="item item-icon-right">{{univ.nama}}<p>{{univ.alamat}} <i class="icon assertive ion-ios7-location"></i></p>
+            </li>
+          </ul>
+        </div>
+      </ion-content>
+    </ion-view>
+  </script>
+  <script id="programstudi.html" type="text/ng-template">
+    <ion-view title="Program Studi">
+      <ion-content>
+        <div id="search-box" class="bar bar-header item-input-inset item-clear">
+          <label class="item-input-wrapper item-input-wrapper-custom">
+            <i class="icon ion-ios7-search placeholder-icon"></i>
+            <input type="search" placeholder="Search" ng-model="data.searchQuery">
+          </label>
+          <button class="button button-clear" ng-click="clearSearch()">
+            Clear
+          </button>
+        </div>
+        <ul class="list item-clear">
+          <li ng-repeat="prodi in posts| filter: data.searchQuery">
+            <a ng-href="#/event/programstudi/detail/{{prodi.id}}" class="item item-icon-right">{{prodi.nama}} <i class="icon ion-ios7-arrow-right"></i></a>
+          </li>
+        </ul>
+      </ion-content>
+    </ion-view>
+  </script>
+  <script id="detailprodi.html" type="text/ng-template">
+    <ion-view title="{{prodiku.nama}}">
+      <ion-content>
+      <div class="list card">
+        <div class="item item-text-wrap" style="text-align: justify;">
+          {{prodiku.deskripsi}}
+        </div>
+        <div class="item item-text-wrap">
+          <h2>Jenjang : {{prodiku.jenjang}}</h2>
+        </div>
+        <div class="item">
+        </div>
+      </div>
+      </ion-content>
+    </ion-view>
+  </script>
+  <script id="jalurkampus.html" type="text/ng-template">
+    <ion-view title="Jalur Kampus">
+      <ion-content>
+        <div id="search-box" class="bar bar-header item-input-inset item-clear">
+          <label class="item-input-wrapper item-input-wrapper-custom">
+            <i class="icon ion-ios7-search placeholder-icon"></i>
+          <input type="search" placeholder="Search" ng-model="data.searchQuery">
+          </label>
+          <button class="button button-clear" ng-click="clearSearch()">
+          Clear
+          </button>
+        </div>
+        <ul class="list item-clear">
+          <li ng-repeat="kampus in posts| filter: data.searchQuery"><a class="item item-icon-right" ng-href="#/event/jalurkampus/universitas/{{kampus.id}}">{{kampus.nama}}<i class="icon ion-ios7-arrow-right"></i></a></li>
+        </ul>
+      </ion-content>
+    </ion-view>
+  </script>
+   <script id="jalurkampusdetail.html" type="text/ng-template">
+      <ion-view title="Jalur Kampus">
+      <ion-content>
+         <ul class="list item-clear">
+            <li ng-repeat="jalur in posts"><a class="item item-icon-right" ng-href="#/event/jalurkampus/universitas/jalur/{{jalur.id}}">{{jalur.nama}}<i class="icon ion-ios7-arrow-right"></i></a></li>
+         </ul>
+         </ion-content>
+      </ion-view>
+   </script>
+   <script id="jalankampus.html" type="text/ng-template">
+      <ion-view title="Jalur Kampus">
+         <ion-content>
+            <div id="mapjalur"></div>
+            <div id="directions-panel"></div>
+         </ion-content>
+      </ion-view>
+   </script>
+   <script id="petunjuk.html" type="text/ng-template">
+      <ion-view title="Petunjuk Penggunaan">
+        <ion-content>
+          <div class="list card">
+            <div class="item item-image">
+              <img src="../www/img/petunjuk.jpg">
+            </div>
+            <div class="item item-text-wrap" style="text-align: justify;">
+               Aplikasi Mobile School Maps merupakan aplikasi pencarian lokasi universitas di Yogyakarta yang dikembangkan untuk mempermudah calon mahasiswa mencari lokasi dan informasi universitas. Fitur-fitur yang tersedia antara lain informasi mengenai lokasi universitas beserta peta dan penunjuk arah, informasi program studi, dan informasi universitas lainnya.
+            </div>
+            <div class="item item-text-wrap" style="text-align: center;">
+              <strong>Developer</strong><br>
+              Dayan Ramly Ramadhan <br>
+              <p>dayanramly@gmail.com<br>
+              dayanramly.web.id </p>
+            </div>
+          </div>
+        </ion-content>
+      </ion-view>
+   </script>
+</body>
+</html>

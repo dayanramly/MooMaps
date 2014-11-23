@@ -1,0 +1,68 @@
+/* Empty. Add your own CSS if you like */
+body {
+	/*text-shadow: 1px 1px 0px rgba(0,0,0,0.5);*/
+	background-color: black;
+}
+#map{
+	width: 100%;
+	height: 100%;
+}
+#mapkampus{
+	width: 100%;
+	height: 40%;
+}
+#detailkampus{
+	width:100%;
+}
+#detailkampus ul>li{
+	/*background-color: rgba(0,0,0,0.4);*/
+	/*color:#fff;*/
+}
+#mapjalur{
+	width: 100%;
+	height:40%;
+}
+#directions-panel{
+	background-color: #fff;
+	width:100%;
+}
+.scroll {
+	height: 100%;
+	background-color: #fff;
+}
+
+.item-input-wrapper-custom{
+	/*background: none repeat scroll 0% 0% transparent;*/
+	background-color: rgba(255,255,255,0.2);
+	border:1px solid #DDD;
+}
+.pane{
+	background: url('../img/bgr.svg') ;
+	width: 100%;
+	height: 100%;
+	-webkit-background-size: cover;
+	-moz-background-size: cover;
+	background-size: cover;
+}
+.pane-content, .pane-content h2{
+	color:#fff;
+	text-align: center;
+}
+.pane-content img{
+	margin-top: 5%;
+	width: auto;
+	height: 30%;
+}
+.item-clear, .item-clear li, .item-clear li>a{
+/*	background-color: rgba(0,0,0,0.4);
+	border-color:#333;*/
+	color:#555;
+}
+.item-clear h2{
+	color:#ccc;
+}
+.title-custom{
+	right :0;
+	left:0;
+	text-align: center;
+}

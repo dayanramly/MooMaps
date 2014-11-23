@@ -1,0 +1,22 @@
+c:\xampp\htdocs\MooMaps\platforms\android\ant-gen\com\moomaps\ion\R.java \
+ : c:\xampp\htdocs\MooMaps\platforms\android\res\drawable\myicon.png \
+c:\xampp\htdocs\MooMaps\platforms\android\res\drawable-hdpi\myicon.png \
+c:\xampp\htdocs\MooMaps\platforms\android\res\drawable-land-hdpi\newsplash.jpg \
+c:\xampp\htdocs\MooMaps\platforms\android\res\drawable-land-ldpi\newsplash.jpg \
+c:\xampp\htdocs\MooMaps\platforms\android\res\drawable-land-mdpi\newsplash.jpg \
+c:\xampp\htdocs\MooMaps\platforms\android\res\drawable-land-xhdpi\newsplash.jpg \
+c:\xampp\htdocs\MooMaps\platforms\android\res\drawable-ldpi\myicon.png \
+c:\xampp\htdocs\MooMaps\platforms\android\res\drawable-mdpi\myicon.png \
+c:\xampp\htdocs\MooMaps\platforms\android\res\drawable-port-hdpi\newsplash.jpg \
+c:\xampp\htdocs\MooMaps\platforms\android\res\drawable-port-ldpi\newsplash.jpg \
+c:\xampp\htdocs\MooMaps\platforms\android\res\drawable-port-mdpi\newsplash.jpg \
+c:\xampp\htdocs\MooMaps\platforms\android\res\drawable-port-xhdpi\newsplash.jpg \
+c:\xampp\htdocs\MooMaps\platforms\android\res\drawable-xhdpi\myicon.png \
+c:\xampp\htdocs\MooMaps\platforms\android\res\values\strings.xml \
+c:\xampp\htdocs\MooMaps\platforms\android\res\xml\config.xml \
+c:\xampp\htdocs\MooMaps\platforms\android\ant-build\res\drawable\myicon.png \
+c:\xampp\htdocs\MooMaps\platforms\android\ant-build\res\drawable-hdpi\myicon.png \
+c:\xampp\htdocs\MooMaps\platforms\android\ant-build\res\drawable-ldpi\myicon.png \
+c:\xampp\htdocs\MooMaps\platforms\android\ant-build\res\drawable-mdpi\myicon.png \
+c:\xampp\htdocs\MooMaps\platforms\android\ant-build\res\drawable-xhdpi\myicon.png \
+c:\xampp\htdocs\MooMaps\platforms\android\ant-build\AndroidManifest.xml \
