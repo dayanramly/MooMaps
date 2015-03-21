@@ -97,7 +97,7 @@ angular.module('moomaps', ['ionic'])
     }
   })
   .state('eventmenu.detailprodi',{
-    url:'/programstudi/detail/:id',
+    url:'/programstudi/detail/:nama',
     views:{
       'menuContent' :{
         templateUrl:'detailprodi.html',
@@ -304,6 +304,12 @@ angular.module('moomaps', ['ionic'])
     alert("Koneksi Gagal");
     history.back();
   })
+
+  /* editan jegu */
+  //bikin function buat akses xmap;
+  $scope.centering = function(lat,long){
+    xmap.setCenter(new google.maps.LatLng(lat,long));
+  }
 })
 //end controller map kampus universitas
 //3. controller list prodi
@@ -333,7 +339,7 @@ angular.module('moomaps', ['ionic'])
     content: 'Getting data...',
     showBackdrop: false
   });
-  $http.get("http://servermaps.dayanramly.web.id/prodi/"+$scope.id_prodi) 
+  $http.get("http://servermaps.dayanramly.web.id/cobajoin/"+$scope.nama_prodi) 
   .success(function(data, status, headers, config){
     $ionicLoading.hide();
     if(data==''){
@@ -341,6 +347,7 @@ angular.module('moomaps', ['ionic'])
       history.back();
     }else{
       $scope.prodiku=data;
+       console.log($scope.prodiku);
     }
   })
   .error(function(data, status, headers, config){
@@ -447,10 +454,18 @@ function initmap(myLat, myLong, mydata){
   cityCircle = new google.maps.Circle(populationOptions);
   multimarker(mydata, map);
 }
+
 function multimarker(mydata,map){
   var marker, i;
   for(i=0;i<mydata.length;i++){
     var newLatlng = new google.maps.LatLng(mydata[i].latitude,mydata[i].longitude);
+
+    /* Editan jegu */
+    // inisisai infowindow
+    var infowindow = new google.maps.InfoWindow({
+      content: "",
+      maxWidth: 200 // mengatur width infowindow
+    });
     marker = new google.maps.Marker({
       position: newLatlng,
       icon:new google.maps.MarkerImage(
@@ -459,11 +474,27 @@ function multimarker(mydata,map){
         null,
         null,
         new google.maps.Size(42,68)),
-      title:"ini"
+      title:mydata[i].nama
     });
     marker.setMap(map);
+
+    /* Editan jegu */
+    // nambahin listener click ke tiap marker
+    // looping inject content ke infowindow
+    google.maps.event.addListener(marker, 'click', (function(marker, i) {
+        return function() {
+          var content = "<h4>"+mydata[i].nama+"</h4>"+"<p>"+mydata[i].alamat+"</p>";
+          infowindow.setContent(content);
+          infowindow.open(map, marker);
+        }
+      })(marker, i));
   }
+
 }
+
+/* editan jegu */
+// nambahin xmap buat global variable
+var xmap;
 function multimap(mydata){
   var map;
   var newLatlng = new google.maps.LatLng(mydata[0].latitude,mydata[0].longitude);
@@ -476,8 +507,17 @@ function multimap(mydata){
     mapOptions);
 
   var marker, i;
+
+  console.log(mydata)
   for(i=0;i<mydata.length;i++){
     var newLatlng = new google.maps.LatLng(mydata[i].latitude,mydata[i].longitude);
+
+    /* Editan jegu */
+    // inisisai infowindow
+    var infowindow = new google.maps.InfoWindow({
+      content: "",
+      maxWidth: 200 // mengatur width infowindow
+    });
     marker = new google.maps.Marker({
       position: newLatlng,
       icon: new google.maps.MarkerImage(
@@ -489,8 +529,23 @@ function multimap(mydata){
       title:"ini"
     });
     marker.setMap(map);
+
+    /* Editan jegu */
+    // nambahin listener click ke tiap marker
+    // looping inject content ke infowindow
+    google.maps.event.addListener(marker, 'click', (function(marker, i) {
+        return function() {
+          var content = "<h4>"+mydata[i].nama+"</h4>"+"<p>"+mydata[i].alamat+"</p>";
+          infowindow.setContent(content);
+          infowindow.open(map, marker);
+        }
+      })(marker, i));
   }
+  xmap = map;
 }
+
+
+
 function initRoute(startRouteLat, startRouteLong, endRouteLat, endRoutelong){
   // console.log(startRouteLat+','+startRouteLong+','+endRouteLat+','+endRoutelong);
   directionsDisplay = new google.maps.DirectionsRenderer();

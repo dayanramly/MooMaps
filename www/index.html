@@ -60,7 +60,7 @@
          <p>Mobile School Maps</p>
       </ion-content>
       <ion-footer-bar align-title="center" class="bar-clear">
-        <h1 class="title"><a ng-href="#/event/peta" class="button button-icon icon ion-navigate">Find Me</a></h1>
+        <h1 class="title"><a ng-href="#/event/peta" class="button button-icon icon ion-navigate">Posisiku</a></h1>
       </ion-footer-bar>
     </ion-view>
   </script>
@@ -149,7 +149,7 @@
         <div id="mapkampus"></div>
         <div id="detailkampus">
           <ul class="list item-clear">
-            <li ng-repeat="univ in mapku" class="item item-icon-right">{{univ.nama}}<p>{{univ.alamat}} <i class="icon assertive ion-ios7-location"></i></p>
+            <li ng-repeat="univ in mapku" class="item item-icon-right" ng-click="centering(univ.latitude,univ.longitude)">{{univ.nama}}<p>{{univ.alamat}} <i class="icon assertive ion-ios7-location"></i></p>
             </li>
           </ul>
         </div>
@@ -170,21 +170,29 @@
         </div>
         <ul class="list item-clear">
           <li ng-repeat="prodi in posts| filter: data.searchQuery">
-            <a ng-href="#/event/programstudi/detail/{{prodi.id}}" class="item item-icon-right">{{prodi.nama}} <i class="icon ion-ios7-arrow-right"></i></a>
+            <a ng-href="#/event/programstudi/detail/{{prodi.nama}}" class="item item-icon-right">{{prodi.nama}} <i class="icon ion-ios7-arrow-right"></i></a>
           </li>
         </ul>
       </ion-content>
     </ion-view>
   </script>
   <script id="detailprodi.html" type="text/ng-template">
-    <ion-view title="{{prodiku.nama}}">
+    <ion-view title="Program Studi">
       <ion-content>
       <div class="list card">
         <div class="item item-text-wrap" style="text-align: justify;">
-          {{prodiku.deskripsi}}
+          {{prodiku.0.deskripsi}}
         </div>
         <div class="item item-text-wrap">
-          <h2>Jenjang : {{prodiku.jenjang}}</h2>
+          <h2>Jenjang : {{prodiku.0.jenjang}}</h2>
+        </div>
+        <div class="item item-text-wrap">
+        <h2>Universitas Yang Menyelenggarakan :</h2>
+         <ul class="list item-clear">
+            <li ng-repeat="prodi in prodiku">
+                {{prodi.nama}}
+            </li>
+         </ul>
         </div>
         <div class="item">
         </div>
@@ -233,6 +241,15 @@
           <div class="list card">
             <div class="item item-image">
               <img src="../www/img/petunjuk.jpg">
+            </div>
+            <div class="item item-text-wrap" style="text-align: justify;">
+               Aplikasi Mobile School Maps merupakan aplikasi pencarian lokasi universitas di Yogyakarta yang dikembangkan untuk mempermudah calon mahasiswa mencari lokasi dan informasi universitas. Fitur-fitur yang tersedia antara lain informasi mengenai lokasi universitas beserta peta dan penunjuk arah, informasi program studi, dan informasi universitas lainnya.
+            </div>
+            <div class="item item-text-wrap" style="text-align: center;">
+              <strong>Developer</strong><br>
+              Dayan Ramly Ramadhan <br>
+              <p>dayanramly@gmail.com<br>
+              dayanramly.web.id </p>
             </div>
           </div>
         </ion-content>

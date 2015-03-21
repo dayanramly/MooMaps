@@ -97,7 +97,7 @@ angular.module('moomaps', ['ionic'])
     }
   })
   .state('eventmenu.detailprodi',{
-    url:'/programstudi/detail/:id',
+    url:'/programstudi/detail/:nama',
     views:{
       'menuContent' :{
         templateUrl:'detailprodi.html',
@@ -333,7 +333,7 @@ angular.module('moomaps', ['ionic'])
     content: 'Getting data...',
     showBackdrop: false
   });
-  $http.get("http://servermaps.dayanramly.web.id/prodi/"+$scope.id_prodi) 
+  $http.get("http://localhost/servermaps/public/cobajoin/"+$scope.nama_prodi) 
   .success(function(data, status, headers, config){
     $ionicLoading.hide();
     if(data==''){
@@ -341,6 +341,7 @@ angular.module('moomaps', ['ionic'])
       history.back();
     }else{
       $scope.prodiku=data;
+       console.log($scope.prodiku);
     }
   })
   .error(function(data, status, headers, config){

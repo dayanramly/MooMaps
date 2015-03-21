@@ -31,12 +31,17 @@ c:\xampp\htdocs\MooMaps\platforms\android\assets\www\lib \
 c:\xampp\htdocs\MooMaps\platforms\android\assets\www\plugins \
 c:\xampp\htdocs\MooMaps\platforms\android\assets\www\README.md \
 c:\xampp\htdocs\MooMaps\platforms\android\assets\www\css\style.css \
+c:\xampp\htdocs\MooMaps\platforms\android\assets\www\css\style1.css \
+c:\xampp\htdocs\MooMaps\platforms\android\assets\www\css\styles.min.css \
 c:\xampp\htdocs\MooMaps\platforms\android\assets\www\img\bgr.svg \
 c:\xampp\htdocs\MooMaps\platforms\android\assets\www\img\ionic.png \
 c:\xampp\htdocs\MooMaps\platforms\android\assets\www\img\logo.svg \
 c:\xampp\htdocs\MooMaps\platforms\android\assets\www\img\map.svg \
+c:\xampp\htdocs\MooMaps\platforms\android\assets\www\img\moomaps.jpg \
 c:\xampp\htdocs\MooMaps\platforms\android\assets\www\img\petunjuk.jpg \
+c:\xampp\htdocs\MooMaps\platforms\android\assets\www\js\app-performance.js \
 c:\xampp\htdocs\MooMaps\platforms\android\assets\www\js\app.js \
+c:\xampp\htdocs\MooMaps\platforms\android\assets\www\js\app.min.js \
 c:\xampp\htdocs\MooMaps\platforms\android\assets\www\lib\angular \
 c:\xampp\htdocs\MooMaps\platforms\android\assets\www\lib\angular-animate \
 c:\xampp\htdocs\MooMaps\platforms\android\assets\www\lib\angular-sanitize \

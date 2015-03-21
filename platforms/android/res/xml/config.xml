@@ -36,7 +36,4 @@
     <preference name="SplashScreen" value="newsplash" />
     <preference name="SplashScreenDelay" value="10000" />
     <preference name="BackupWebStorage" value="none" />
-    <feature name="StatusBar">
-        <param name="ios-package" onload="true" value="CDVStatusBar" />
-    </feature>
 </widget>
